@@ -1,12 +1,25 @@
-<?php include ("cabecalho.php"); ?>
-<?php include ("conecta.php"); ?>
+<?php 
+include ("cabecalho.php");
+include ("conecta.php");
+include ("banco-produto.php");
+
+$produtos = listaProdutos($conexao);
+?>
+
+<table class="table table-striped table-bordered">
 
 <?php
-$resultado = mysqli_query($conexao, "select * from produtos");
-
-while($produto = mysqli_fetch_assoc($resultado)) {
-    echo $produto['nome'] . "<br/>";
-}
+foreach($produtos as $produto) :
 ?>
+    <tr>
+        <td><?= $produto['nome']; ?></td>
+        <td><?= $produto['preco']; ?></td>
+        <td><button type="submit" class="btn btn-primary" name="delete">Deletar</td>
+    </tr>
+<?php
+endforeach
+?>
+
+</table>
 
 <?php include ("rodape.php"); ?>
